@@ -9,7 +9,7 @@ on:
                 description: "Paseo version"
                 required: false
                 type: string
-            force:
+            force_release:
                 description: "Force release"
                 required: false
                 type: boolean
@@ -23,7 +23,7 @@ env:
     IMAGE_NAME: ""
     LOCAL_IMAGE_NAME: ""
     PASEO_VERSION: ${{ github.event.inputs.version }}
-    NEEDS_RELEASE: ${{ github.event.inputs.force }}
+    FORCE_RELEASE: ${{ github.event.inputs.force_release }}
 
 jobs:
     release:
@@ -37,7 +37,6 @@ jobs:
             - name: Fetch release information
               env:
                   GH_TOKEN: ${{ github.token }}
-                  FORCE: ${{ github.event.inputs.force }}
               run: |
                   ROOT_DIR="$(pwd)"
                   . "./_utils.sh"

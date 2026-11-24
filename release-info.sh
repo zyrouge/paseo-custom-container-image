@@ -20,7 +20,9 @@ fi
 echo "Version: $PASEO_VERSION"
 echo "$PASEO_VERSION" > "$DIST_DIR/version.txt"
 
-if [ -z "${NEEDS_RELEASE:-}" ]; then
+if [ "${FORCE_RELEASE:-}" = "true" ]; then
+    NEEDS_RELEASE="true"
+else
     set +e
     IMAGE_MANIFEST=$(podman manifest inspect "$IMAGE_NAME:$PASEO_VERSION" 2>&1)
     FOUND_VERSION_EXIT_CODE="$?"
