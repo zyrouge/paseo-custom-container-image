@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "github.vscode-github-actions",
+        "ms-azuretools.vscode-containers",
+        "GitHub.copilot-chat",
+        "esbenp.prettier-vscode",
+    ]
+}
