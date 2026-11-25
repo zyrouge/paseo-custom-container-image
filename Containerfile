@@ -21,9 +21,15 @@ RUN apt-get update && \
 	mkdir -p -m 755 /etc/apt/sources.list.d && \
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
 	apt-get update && \
-    apt-get install -y --no-install-recommends bash iputils-ping git gh && \
+    apt-get install -y --no-install-recommends bash iputils-ping vim dnsutils iproute2 netcat-openbsd file findutils unzip zip tar xz-utils gzip python3 git gh && \
     rm -rf /var/lib/apt/lists/*
 
 RUN npm i -g @opencode/cli@latest
+
+ENV PROTO_HOME=/usr/local/share/proto
+ENV PATH="$PROTO_HOME/bin:$PATH"
+
+RUN bash -c "bash <(curl -fsSL https://moonrepo.dev/install/proto.sh) latest --no-profile --yes" && \
+    chmod -R a+rwX "$PROTO_HOME"
 
 ENV SHELL=/bin/bash
