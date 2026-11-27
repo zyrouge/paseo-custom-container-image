@@ -32,4 +32,15 @@ ENV PATH="$PROTO_HOME/bin:$PATH"
 RUN bash -c "bash <(curl -fsSL https://moonrepo.dev/install/proto.sh) latest --no-profile --yes" && \
     chmod -R a+rwX "$PROTO_HOME"
 
+ENV MISE_INSTALL_PATH=/usr/local/bin/mise
+ENV MISE_DATA_DIR=/usr/local/share/mise
+ENV MISE_TRUSTED_CONFIG_PATHS=/workspace
+
+RUN bash -c "curl -fsSL https://mise.run | sh" && \
+    mkdir -p "$MISE_DATA_DIR" && \
+    chmod -R a+rwX "$MISE_DATA_DIR" && \
+    echo 'eval "$(mise activate bash)"' >> /etc/bash.bashrc
+
+ENV PATH="$MISE_DATA_DIR/shims:$PATH"
+
 ENV SHELL=/bin/bash
